@@ -1,0 +1,686 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  .cl-root {
+    background: #080810;
+    color: #f0eee8;
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .cl-root::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: 
+      radial-gradient(ellipse 60% 40% at 20% 15%, rgba(220,60,120,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 80% 70%, rgba(80,200,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .grid-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 100vh;
+    background-image: 
+      linear-gradient(rgba(220,60,120,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(220,60,120,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 20%, rgba(0,0,0,0.5) 80%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .nav {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    border-bottom: 0.5px solid rgba(220,60,120,0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 3px;
+    color: #f0eee8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-logo span {
+    color: #dc3c78;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(240,238,232,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: #dc3c78; }
+
+  .nav-cta {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: #dc3c78;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.4rem;
+    cursor: pointer;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding: 4rem 3rem;
+    gap: 4rem;
+  }
+
+  .hero-text {
+    flex: 1;
+    max-width: 55%;
+  }
+
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #dc3c78;
+    border: 0.5px solid rgba(220,60,120,0.4);
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    margin-bottom: 1.5rem;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  }
+
+  .hero-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 9vw, 8rem);
+    line-height: 0.92;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    color: #f0eee8;
+  }
+
+  .hero-headline .accent {
+    color: #dc3c78;
+    display: block;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: rgba(240,238,232,0.65);
+    line-height: 1.7;
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .btn-primary {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: #dc3c78;
+    color: #fff;
+    border: none;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: background 0.2s;
+  }
+
+  .btn-primary:hover { background: #f0527e; }
+
+  .btn-ghost {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: transparent;
+    color: rgba(240,238,232,0.6);
+    border: 0.5px solid rgba(240,238,232,0.2);
+    padding: 1rem 2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-ghost:hover {
+    color: #f0eee8;
+    border-color: rgba(240,238,232,0.5);
+  }
+
+  .hero-visual {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .product-pill {
+    width: 180px;
+    height: 340px;
+    background: linear-gradient(160deg, rgba(40,20,30,0.9) 0%, rgba(20,10,20,0.95) 100%);
+    border: 0.5px solid rgba(220,60,120,0.3);
+    border-radius: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(220,60,120,0.15), inset 0 0 40px rgba(220,60,120,0.05);
+  }
+
+  .product-pill::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 20%; right: 20%; height: 60px;
+    background: rgba(200,180,200,0.15);
+    border-radius: 0 0 50% 50%;
+  }
+
+  .sphere {
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .sphere-dark {
+    width: 34px; height: 34px;
+    background: radial-gradient(circle at 35% 35%, #3a2535, #1a0f1a);
+    border: 0.5px solid rgba(220,60,120,0.2);
+  }
+
+  .sphere-pink {
+    width: 34px; height: 34px;
+    background: radial-gradient(circle at 35% 35%, #f08090, #dc3c78);
+  }
+
+  .pill-label {
+    position: absolute;
+    bottom: 30px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(220,60,120,0.7);
+  }
+
+  .pill-glow {
+    position: absolute;
+    bottom: -40px;
+    width: 120px; height: 120px;
+    background: rgba(220,60,120,0.2);
+    border-radius: 50%;
+    filter: blur(30px);
+  }
+
+  .specs-panel {
+    position: absolute;
+    right: -20px;
+    top: 30px;
+    background: rgba(15,10,20,0.9);
+    border: 0.5px solid rgba(220,60,120,0.25);
+    padding: 1rem;
+    width: 160px;
+  }
+
+  .spec-item {
+    margin-bottom: 0.8rem;
+  }
+
+  .spec-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 2px;
+    color: rgba(220,60,120,0.7);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .spec-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    color: #f0eee8;
+  }
+
+  .spec-bar {
+    height: 2px;
+    background: rgba(240,238,232,0.1);
+    margin-top: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .spec-bar-fill {
+    position: absolute;
+    top: 0; left: 0; height: 100%;
+    background: #dc3c78;
+  }
+
+  .section-stats {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 0.5px solid rgba(220,60,120,0.15);
+    border-bottom: 0.5px solid rgba(220,60,120,0.15);
+  }
+
+  .stat-item {
+    padding: 2.5rem 3rem;
+    border-right: 0.5px solid rgba(220,60,120,0.15);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    letter-spacing: 2px;
+    color: #dc3c78;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(240,238,232,0.4);
+  }
+
+  .section-product {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 3rem;
+    display: flex;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #dc3c78;
+    margin-bottom: 1rem;
+  }
+
+  .section-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    color: #f0eee8;
+    margin-bottom: 1.5rem;
+  }
+
+  .ingredients-list {
+    list-style: none;
+    margin-top: 2rem;
+  }
+
+  .ingredients-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.8rem 0;
+    border-bottom: 0.5px solid rgba(240,238,232,0.08);
+    font-size: 0.9rem;
+    color: rgba(240,238,232,0.7);
+  }
+
+  .ing-dot {
+    width: 8px; height: 8px;
+    background: #dc3c78;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .ing-pct {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: rgba(220,60,120,0.8);
+    margin-left: auto;
+  }
+
+  .cross-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .section-flavour {
+    position: relative;
+    z-index: 1;
+    background: rgba(220,60,120,0.06);
+    border-top: 0.5px solid rgba(220,60,120,0.2);
+    border-bottom: 0.5px solid rgba(220,60,120,0.2);
+    padding: 5rem 3rem;
+    text-align: center;
+  }
+
+  .slogan-main {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    letter-spacing: 3px;
+    color: #f0eee8;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .slogan-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(220,60,120,0.7);
+    margin-top: 1rem;
+  }
+
+  .section-cta {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .cta-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4.5vw, 4rem);
+    letter-spacing: 2px;
+    color: #f0eee8;
+    line-height: 1;
+    max-width: 500px;
+  }
+
+  .cta-headline .accent { color: #dc3c78; }
+
+  .cta-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-end;
+  }
+
+  .price-tag {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    color: #f0eee8;
+  }
+
+  .price-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(240,238,232,0.4);
+    text-align: right;
+  }
+
+  .footer-strip {
+    position: relative;
+    z-index: 1;
+    border-top: 0.5px solid rgba(220,60,120,0.15);
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-mono {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(240,238,232,0.25);
+  }
+
+  .ticker {
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: rgba(220,60,120,0.4);
+    flex: 1;
+    margin: 0 2rem;
+  }
+
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 20s linear infinite;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
+  }
+
+  .badge-new {
+    background: #dc3c78;
+    color: #fff;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    clip-path: polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%);
+    display: inline-block;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+</style>
+
+<div class="cl-root">
+  <div class="grid-bg"></div>
+
+  <nav class="nav">
+    <div class="nav-logo">CRAVE<span>LABS</span></div>
+    <ul class="nav-links">
+      <li><a href="#">Products</a></li>
+      <li><a href="#">Science</a></li>
+      <li><a href="#">Manifesto</a></li>
+    </ul>
+    <button class="nav-cta">Order Now</button>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">Experiment PB-01 · Cherry Core</div>
+      <h1 class="hero-headline">
+        Demasiado<br>
+        rico para<br>
+        <span class="accent">ser saludable.</span>
+      </h1>
+      <p class="hero-sub">
+        Engineered in the lab. Forged for your cravings. 70% whey protein, 30% freeze-dried raspberry — cloaked in a shell of pure chocolate.
+        <br><br>
+        No lecture. No compromise. Just flavor that hits different.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary">Get Cherry Core</button>
+        <button class="btn-ghost">See the Science</button>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="product-pill">
+        <div class="sphere sphere-dark"></div>
+        <div class="sphere sphere-dark"></div>
+        <div class="sphere sphere-pink"></div>
+        <div class="sphere sphere-dark"></div>
+        <div class="sphere sphere-dark"></div>
+        <div class="sphere sphere-pink"></div>
+        <div class="sphere sphere-dark"></div>
+        <div class="sphere sphere-dark"></div>
+        <div class="sphere sphere-dark"></div>
+        <div class="sphere sphere-pink"></div>
+        <div class="sphere sphere-dark"></div>
+        <div class="sphere sphere-dark"></div>
+        <div class="pill-label">Cherry Core · 40g</div>
+        <div class="pill-glow"></div>
+      </div>
+
+      <div class="specs-panel">
+        <div class="spec-item">
+          <div class="spec-label">Protein</div>
+          <div class="spec-value">20g</div>
+          <div class="spec-bar"><div class="spec-bar-fill" style="width:80%"></div></div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Net Wt</div>
+          <div class="spec-value">40g</div>
+          <div class="spec-bar"><div class="spec-bar-fill" style="width:100%"></div></div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Flavor</div>
+          <div class="spec-value">Epic</div>
+          <div class="spec-bar"><div class="spec-bar-fill" style="width:99%"></div></div>
+        </div>
+        <div class="spec-item" style="margin-bottom:0">
+          <div class="spec-label">Guilt</div>
+          <div class="spec-value">Zero</div>
+          <div class="spec-bar"><div class="spec-bar-fill" style="width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-stats">
+    <div class="stat-item">
+      <div class="stat-number">20g</div>
+      <div class="stat-label">Protein per pack</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">40g</div>
+      <div class="stat-label">Total net weight</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">2×</div>
+      <div class="stat-label">Size of an M&M. Twice the hit.</div>
+    </div>
+  </section>
+
+  <section class="section-product">
+    <div style="flex:1">
+      <div class="section-label">// Formula_01 · Anatomy of a Cherry Core</div>
+      <h2 class="section-headline">Three layers.<br>One obsession.</h2>
+      <p style="color:rgba(240,238,232,0.55); font-size:0.95rem; line-height:1.7; max-width:380px;">
+        We didn't set out to make a protein snack. We set out to make the most addictive thing you've ever eaten — and then quietly made it nutritious.
+      </p>
+      <ul class="ingredients-list">
+        <li>
+          <div class="ing-dot"></div>
+          Dark chocolate shell — thin, snappy, bittersweet
+          <span class="ing-pct">outer</span>
+        </li>
+        <li>
+          <div class="ing-dot"></div>
+          Freeze-dried raspberry — pure, tart, electric
+          <span class="ing-pct">30%</span>
+        </li>
+        <li>
+          <div class="ing-dot"></div>
+          Whey protein core — dense, clean, complete
+          <span class="ing-pct">70%</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cross-section">
+      <svg viewBox="0 0 260 260" width="260" height="260" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="130" cy="130" r="120" fill="#1a0a14" stroke="rgba(220,60,120,0.3)" stroke-width="0.5"/>
+        <circle cx="130" cy="130" r="100" fill="#2a1020"/>
+        <circle cx="130" cy="130" r="72" fill="#dc3c78" opacity="0.25"/>
+        <circle cx="130" cy="130" r="72" fill="none" stroke="#dc3c78" stroke-width="0.5" stroke-dasharray="4 4"/>
+        <circle cx="130" cy="130" r="48" fill="#3a1a28"/>
+        <text x="130" y="100" text-anchor="middle" fill="rgba(240,238,232,0.3)" font-family="monospace" font-size="8" letter-spacing="2">CHOCOLATE</text>
+        <line x1="90" y1="108" x2="130" y2="118" stroke="rgba(220,60,120,0.4)" stroke-width="0.5"/>
+        <text x="130" y="125" text-anchor="middle" fill="rgba(220,60,120,0.8)" font-family="monospace" font-size="7" letter-spacing="1">RASPBERRY</text>
+        <text x="130" y="135" text-anchor="middle" fill="rgba(240,238,232,0.2)" font-family="monospace" font-size="6">30%</text>
+        <text x="130" y="155" text-anchor="middle" fill="rgba(240,238,232,0.6)" font-family="monospace" font-size="8" letter-spacing="2">WHEY CORE</text>
+        <text x="130" y="167" text-anchor="middle" fill="rgba(240,238,232,0.3)" font-family="monospace" font-size="6">70%</text>
+        <circle cx="130" cy="130" r="120" fill="none" stroke="rgba(220,60,120,0.15)" stroke-width="20"/>
+        <text x="130" y="218" text-anchor="middle" fill="rgba(220,60,120,0.5)" font-family="monospace" font-size="7" letter-spacing="3">CHERRY_CORE · CRAVE LABS</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="section-flavour">
+    <div class="slogan-main">Puro placer.</div>
+    <div class="slogan-main" style="color:#dc3c78">Sin el castigo.</div>
+    <div class="slogan-sub">// Crave Labs · Cherry Core · Futura Edición 01</div>
+  </section>
+
+  <section class="section-cta">
+    <div>
+      <h2 class="cta-headline">
+        The future of<br>snacking is<br><span class="accent">cherry-shaped.</span>
+      </h2>
+      <p style="color:rgba(240,238,232,0.4); font-size:0.85rem; margin-top:1rem; font-family:monospace; letter-spacing:1px;">
+        40g · 20g protein · free shipping over $30
+      </p>
+    </div>
+    <div class="cta-right">
+      <div class="price-sub">Starting from</div>
+      <div class="price-tag">$6.99 / pack</div>
+      <button class="btn-primary" style="white-space:nowrap">Add to Cart</button>
+      <button class="btn-ghost" style="white-space:nowrap">Try a Bundle</button>
+    </div>
+  </section>
+
+  <footer class="footer-strip">
+    <div class="footer-mono">© 2025 Crave Labs</div>
+    <div class="ticker">
+      <span class="ticker-inner">
+        CHERRY_CORE · PURO PLACER · SIN EL CASTIGO · DEMASIADO RICO PARA SER SALUDABLE · EXPERIMENT_01 · 20G PROTEIN · EPIC FLAVOR ENGINE · &nbsp;&nbsp;&nbsp;&nbsp; CHERRY_CORE · PURO PLACER · SIN EL CASTIGO · DEMASIADO RICO PARA SER SALUDABLE ·
+      </span>
+    </div>
+    <div class="footer-mono">CL_LAB · EST. 2025</div>
+  </footer>
+</div>
