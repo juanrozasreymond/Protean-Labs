@@ -1,0 +1,278 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  .r { background:#07080f; color:#f0eee8; font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; }
+  .r::before { content:''; position:absolute; top:0;left:0;right:0;bottom:0; background:radial-gradient(ellipse 55% 40% at 15% 10%, rgba(200,50,100,0.13) 0%,transparent 70%), radial-gradient(ellipse 40% 30% at 85% 75%, rgba(60,160,220,0.07) 0%,transparent 70%); pointer-events:none; z-index:0; }
+  .gbg { position:absolute; top:0;left:0;right:0;height:100vh; background-image:linear-gradient(rgba(200,50,100,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(200,50,100,0.05) 1px,transparent 1px); background-size:56px 56px; mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,0.4) 15%,rgba(0,0,0,0.4) 85%,transparent 100%); pointer-events:none; z-index:0; }
+  .nav { position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 3rem;border-bottom:0.5px solid rgba(200,50,100,0.2); }
+  .nav-logo { font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:4px;color:#f0eee8;display:flex;align-items:center;gap:6px; }
+  .nav-logo span { color:#c83264; }
+  .nav-links { display:flex;gap:2rem;list-style:none; }
+  .nav-links a { font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:rgba(240,238,232,0.45);text-decoration:none;transition:color 0.2s; }
+  .nav-links a:hover { color:#c83264; }
+  .nav-cta { font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;background:#c83264;color:#fff;border:none;padding:0.6rem 1.4rem;cursor:pointer;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); }
+  .hero { position:relative;z-index:1;min-height:91vh;display:flex;align-items:center;padding:3rem 3rem;gap:3rem; }
+  .hero-text { flex:1;max-width:52%; }
+  .hero-tag { font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:#c83264;border:0.5px solid rgba(200,50,100,0.4);display:inline-block;padding:0.3rem 0.8rem;margin-bottom:1.4rem;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%); }
+  .hero-h1 { font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,9vw,8rem);line-height:0.9;letter-spacing:2px;margin-bottom:1.4rem;color:#f0eee8; }
+  .hero-h1 .acc { color:#c83264;display:block; }
+  .hero-sub { font-size:1rem;font-weight:300;color:rgba(240,238,232,0.6);line-height:1.75;max-width:420px;margin-bottom:2.2rem; }
+  .hero-btns { display:flex;align-items:center;gap:1.2rem; }
+  .btn-p { font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;background:#c83264;color:#fff;border:none;padding:0.9rem 1.8rem;cursor:pointer;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:background 0.2s; }
+  .btn-p:hover { background:#e04078; }
+  .btn-g { font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;background:transparent;color:rgba(240,238,232,0.55);border:0.5px solid rgba(240,238,232,0.2);padding:0.9rem 1.8rem;cursor:pointer;transition:all 0.2s; }
+  .btn-g:hover { color:#f0eee8;border-color:rgba(240,238,232,0.5); }
+  .hero-visual { flex:1;display:flex;justify-content:center;align-items:center;position:relative;gap:2rem; }
+  .specs-side { display:flex;flex-direction:column;gap:0.8rem; }
+  .sp { background:rgba(15,10,20,0.85);border:0.5px solid rgba(200,50,100,0.2);padding:0.75rem 1rem;min-width:120px; }
+  .sp-lbl { font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:2px;text-transform:uppercase;color:rgba(200,50,100,0.7);margin-bottom:2px; }
+  .sp-val { font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:1px;color:#f0eee8; }
+  .sp-bar { height:2px;background:rgba(240,238,232,0.08);margin-top:3px; }
+  .sp-fill { height:100%;background:#c83264; }
+  .stats { position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);border-top:0.5px solid rgba(200,50,100,0.15);border-bottom:0.5px solid rgba(200,50,100,0.15); }
+  .stat { padding:2.2rem 3rem;border-right:0.5px solid rgba(200,50,100,0.12); }
+  .stat:last-child { border-right:none; }
+  .stat-n { font-family:'Bebas Neue',sans-serif;font-size:3.2rem;letter-spacing:2px;color:#c83264;line-height:1;margin-bottom:0.25rem; }
+  .stat-l { font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(240,238,232,0.35); }
+  .anatomy { position:relative;z-index:1;padding:5rem 3rem;display:flex;gap:5rem;align-items:center; }
+  .sec-lbl { font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:3px;text-transform:uppercase;color:#c83264;margin-bottom:0.9rem; }
+  .sec-h2 { font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4.2rem);line-height:0.95;letter-spacing:1px;color:#f0eee8;margin-bottom:1.2rem; }
+  .ing-list { list-style:none;margin-top:1.8rem; }
+  .ing-list li { display:flex;align-items:center;gap:10px;padding:0.75rem 0;border-bottom:0.5px solid rgba(240,238,232,0.07);font-size:0.88rem;color:rgba(240,238,232,0.65); }
+  .dot { width:7px;height:7px;border-radius:50%;flex-shrink:0; }
+  .dot-sugar { background:#f5d97a; }
+  .dot-choc  { background:#6b3a28; }
+  .dot-cherry{ background:#c83264; }
+  .dot-whey  { background:#d4c5b8; }
+  .pct { font-family:'Space Mono',monospace;font-size:0.7rem;color:rgba(200,50,100,0.75);margin-left:auto; }
+  .layer-tag { font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:1px;background:rgba(245,217,122,0.12);color:#f5d97a;border:0.5px solid rgba(245,217,122,0.3);padding:0.15rem 0.5rem;margin-left:8px;white-space:nowrap; }
+  .slogan { position:relative;z-index:1;background:rgba(200,50,100,0.07);border-top:0.5px solid rgba(200,50,100,0.2);border-bottom:0.5px solid rgba(200,50,100,0.2);padding:5rem 3rem;text-align:center; }
+  .sl-main { font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,6.5rem);letter-spacing:3px;color:#f0eee8;line-height:1; }
+  .sl-acc { color:#c83264; }
+  .sl-sub { font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:4px;text-transform:uppercase;color:rgba(200,50,100,0.6);margin-top:1rem; }
+  .cta { position:relative;z-index:1;padding:5.5rem 3rem;display:flex;justify-content:space-between;align-items:center;gap:3rem; }
+  .cta-h { font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,4.5vw,4rem);letter-spacing:2px;color:#f0eee8;line-height:1;max-width:480px; }
+  .cta-h .acc { color:#c83264; }
+  .cta-r { display:flex;flex-direction:column;gap:0.8rem;align-items:flex-end; }
+  .price-sub { font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:rgba(240,238,232,0.35);text-align:right; }
+  .price { font-family:'Bebas Neue',sans-serif;font-size:2.6rem;letter-spacing:2px;color:#f0eee8;line-height:1; }
+  .price-currency { font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:2px;color:rgba(200,50,100,0.7);text-align:right;margin-top:2px; }
+  .foot { position:relative;z-index:1;border-top:0.5px solid rgba(200,50,100,0.15);padding:1.4rem 3rem;display:flex;justify-content:space-between;align-items:center; }
+  .foot-mono { font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:rgba(240,238,232,0.22); }
+  .ticker { overflow:hidden;white-space:nowrap;font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:2px;color:rgba(200,50,100,0.38);flex:1;margin:0 2rem; }
+  .tick-in { display:inline-block;animation:tick 24s linear infinite; }
+  @keyframes tick { from{transform:translateX(100%)} to{transform:translateX(-100%)} }
+</style>
+
+<div class="r">
+  <div class="gbg"></div>
+
+  <nav class="nav">
+    <div class="nav-logo">PROTEAN<span>LABS</span></div>
+    <ul class="nav-links">
+      <li><a href="#">Products</a></li>
+      <li><a href="#">Formula</a></li>
+      <li><a href="#">Manifesto</a></li>
+    </ul>
+    <button class="nav-cta">Order Now</button>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">Experiment CC-01 · Cherry Core · 4-Layer Formula</div>
+      <h1 class="hero-h1">
+        Demasiado<br>rico para<br>
+        <span class="acc">ser saludable.</span>
+      </h1>
+      <p class="hero-sub">
+        Four precision layers. A crystalline sugar shell that snaps clean and stays pocket-safe. Dark chocolate beneath. Freeze-dried cherry in the middle. Pure whey protein at the core. Every bite engineered to hit.
+      </p>
+      <div class="hero-btns">
+        <button class="btn-p">Get Cherry Core</button>
+        <button class="btn-g">See the Formula</button>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <svg viewBox="0 0 160 400" width="130" height="340" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sachetBg" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1a0c14"/><stop offset="30%" stop-color="#0f0810"/><stop offset="70%" stop-color="#0f0810"/><stop offset="100%" stop-color="#1a0c14"/>
+          </linearGradient>
+          <linearGradient id="stripe" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#c83264" stop-opacity="0"/><stop offset="50%" stop-color="#c83264"/><stop offset="100%" stop-color="#c83264" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="edgeL" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#c83264" stop-opacity="0.6"/><stop offset="100%" stop-color="#c83264" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="edgeR" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#c83264" stop-opacity="0"/><stop offset="100%" stop-color="#c83264" stop-opacity="0.6"/>
+          </linearGradient>
+          <clipPath id="sc"><rect x="8" y="0" width="144" height="400" rx="6"/></clipPath>
+        </defs>
+        <rect x="8" y="0" width="144" height="400" rx="6" fill="url(#sachetBg)"/>
+        <rect x="8" y="0" width="22" height="400" fill="url(#edgeL)" clip-path="url(#sc)" opacity="0.5"/>
+        <rect x="130" y="0" width="22" height="400" fill="url(#edgeR)" clip-path="url(#sc)" opacity="0.5"/>
+        <line x1="28" y1="0" x2="28" y2="400" stroke="#c83264" stroke-width="0.4" opacity="0.3"/>
+        <line x1="36" y1="0" x2="36" y2="400" stroke="#c83264" stroke-width="0.3" opacity="0.15"/>
+        <line x1="124" y1="0" x2="124" y2="400" stroke="#c83264" stroke-width="0.4" opacity="0.3"/>
+        <line x1="132" y1="0" x2="132" y2="400" stroke="#c83264" stroke-width="0.3" opacity="0.15"/>
+        <rect x="52" y="0" width="56" height="400" fill="url(#stripe)" opacity="0.18"/>
+        <rect x="8" y="0" width="144" height="18" fill="rgba(240,200,210,0.06)" rx="6"/>
+        <line x1="8" y1="18" x2="152" y2="18" stroke="rgba(200,50,100,0.3)" stroke-width="0.5"/>
+        <rect x="8" y="382" width="144" height="18" fill="rgba(240,200,210,0.06)"/>
+        <line x1="8" y1="382" x2="152" y2="382" stroke="rgba(200,50,100,0.3)" stroke-width="0.5"/>
+        <text x="80" y="46" text-anchor="middle" fill="#f0eee8" font-family="monospace" font-size="8" letter-spacing="4" font-weight="700">PROTEAN</text>
+        <text x="80" y="57" text-anchor="middle" fill="#c83264" font-family="monospace" font-size="7" letter-spacing="5">LABS</text>
+        <line x1="30" y1="63" x2="130" y2="63" stroke="rgba(200,50,100,0.3)" stroke-width="0.5"/>
+        <text transform="translate(42,340) rotate(-90)" text-anchor="middle" fill="#c83264" font-family="'Bebas Neue',sans-serif" font-size="38" letter-spacing="3">CHERRY</text>
+        <text transform="translate(68,340) rotate(-90)" text-anchor="middle" fill="#f0eee8" font-family="'Bebas Neue',sans-serif" font-size="38" letter-spacing="3">CORE</text>
+        <text transform="translate(108,310) rotate(-90)" text-anchor="middle" fill="rgba(240,238,232,0.4)" font-family="monospace" font-size="6.5" letter-spacing="2">RECHARGE. DON'T REFUEL.</text>
+        <circle cx="80" cy="285" r="42" fill="rgba(10,5,10,0.7)" stroke="rgba(200,50,100,0.2)" stroke-width="0.5"/>
+        <circle cx="68" cy="275" r="15" fill="#f5d97a" opacity="0.25"/>
+        <circle cx="68" cy="275" r="13" fill="#3a1e14"/>
+        <circle cx="68" cy="275" r="8"  fill="#c83264" opacity="0.55"/>
+        <circle cx="92" cy="278" r="15" fill="#f5d97a" opacity="0.25"/>
+        <circle cx="92" cy="278" r="13" fill="#3a1e14"/>
+        <circle cx="92" cy="278" r="8"  fill="#c83264" opacity="0.55"/>
+        <circle cx="78" cy="296" r="15" fill="#f5d97a" opacity="0.25"/>
+        <circle cx="78" cy="296" r="13" fill="#3a1e14"/>
+        <circle cx="78" cy="296" r="8"  fill="#c83264" opacity="0.55"/>
+        <line x1="20" y1="340" x2="140" y2="340" stroke="rgba(200,50,100,0.25)" stroke-width="0.5"/>
+        <text x="80" y="354" text-anchor="middle" fill="rgba(200,50,100,0.75)" font-family="monospace" font-size="6" letter-spacing="2">BIO-LOAD: 20G PROTEIN</text>
+        <text x="80" y="366" text-anchor="middle" fill="rgba(240,238,232,0.35)" font-family="monospace" font-size="5.5" letter-spacing="2">NET WT. 40G</text>
+        <rect x="8" y="0" width="144" height="400" rx="6" fill="none" stroke="rgba(200,50,100,0.25)" stroke-width="0.8"/>
+      </svg>
+
+      <div class="specs-side">
+        <div class="sp">
+          <div class="sp-lbl">Protein</div>
+          <div class="sp-val">20g</div>
+          <div class="sp-bar"><div class="sp-fill" style="width:80%"></div></div>
+        </div>
+        <div class="sp">
+          <div class="sp-lbl">Layers</div>
+          <div class="sp-val">4</div>
+          <div class="sp-bar"><div class="sp-fill" style="width:100%"></div></div>
+        </div>
+        <div class="sp">
+          <div class="sp-lbl">Melt-proof</div>
+          <div class="sp-val">Yes</div>
+          <div class="sp-bar"><div class="sp-fill" style="width:100%"></div></div>
+        </div>
+        <div class="sp">
+          <div class="sp-lbl">Guilt</div>
+          <div class="sp-val">Zero</div>
+          <div class="sp-bar"><div class="sp-fill" style="width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat">
+      <div class="stat-n">4</div>
+      <div class="stat-l">Precision layers</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">20g</div>
+      <div class="stat-l">Protein per sachet</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">0°</div>
+      <div class="stat-l">Melting. Sugar shell holds.</div>
+    </div>
+  </section>
+
+  <section class="anatomy">
+    <div style="flex:1">
+      <div class="sec-lbl">// Formula_CC01 · Anatomy of Cherry Core</div>
+      <h2 class="sec-h2">Four layers.<br>One obsession.</h2>
+      <p style="color:rgba(240,238,232,0.5);font-size:0.9rem;line-height:1.75;max-width:380px;">
+        We didn't set out to make a protein snack. We set out to engineer the most craveable thing you've ever eaten — then quietly made it nutritious. The sugar shell isn't a compromise. It's the finishing touch.
+      </p>
+      <ul class="ing-list">
+        <li><div class="dot dot-sugar"></div> Sugar shell — crystalline, melt-proof, a whisper of sweet <span class="layer-tag">new</span><span class="pct">outer</span></li>
+        <li><div class="dot dot-choc"></div> Dark chocolate — thin, snappy, bittersweet <span class="pct">layer 2</span></li>
+        <li><div class="dot dot-cherry"></div> Freeze-dried cherry — pure, tart, electric <span class="pct">30%</span></li>
+        <li><div class="dot dot-whey"></div> Whey protein core — dense, clean, complete <span class="pct">70%</span></li>
+      </ul>
+    </div>
+    <div style="flex:1;display:flex;justify-content:center;align-items:center;">
+      <svg viewBox="0 0 280 280" width="260" height="260" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="140" cy="140" r="130" fill="rgba(245,217,122,0.07)" stroke="#f5d97a" stroke-width="0.6" stroke-dasharray="3 5"/>
+        <text x="140" y="28" text-anchor="middle" fill="#f5d97a" font-family="monospace" font-size="7" letter-spacing="2" opacity="0.7">SUGAR SHELL</text>
+        <circle cx="140" cy="140" r="108" fill="#1e0c0a" stroke="#6b3a28" stroke-width="0.5"/>
+        <text x="140" y="52" text-anchor="middle" fill="rgba(240,238,232,0.25)" font-family="monospace" font-size="7" letter-spacing="2">DARK CHOCOLATE</text>
+        <circle cx="140" cy="140" r="80" fill="rgba(200,50,100,0.22)"/>
+        <circle cx="140" cy="140" r="80" fill="none" stroke="#c83264" stroke-width="0.5" stroke-dasharray="4 4"/>
+        <text x="140" y="80" text-anchor="middle" fill="rgba(200,50,100,0.85)" font-family="monospace" font-size="7" letter-spacing="1">FREEZE-DRIED CHERRY</text>
+        <text x="140" y="91" text-anchor="middle" fill="rgba(240,238,232,0.2)" font-family="monospace" font-size="6">30%</text>
+        <circle cx="140" cy="140" r="50" fill="#2a1a22"/>
+        <text x="140" y="135" text-anchor="middle" fill="rgba(240,238,232,0.6)" font-family="monospace" font-size="8" letter-spacing="2">WHEY CORE</text>
+        <text x="140" y="148" text-anchor="middle" fill="rgba(240,238,232,0.25)" font-family="monospace" font-size="6">70%</text>
+        <text x="140" y="240" text-anchor="middle" fill="rgba(200,50,100,0.4)" font-family="monospace" font-size="6.5" letter-spacing="3">CHERRY_CORE · PROTEAN LABS</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- SUGAR SHELL CALLOUT -->
+  <section style="position:relative;z-index:1;padding:4rem 3rem;background:rgba(245,217,122,0.04);border-top:0.5px solid rgba(245,217,122,0.15);border-bottom:0.5px solid rgba(245,217,122,0.15);display:flex;gap:4rem;align-items:center;">
+    <div style="flex:1">
+      <div style="font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:3px;text-transform:uppercase;color:#f5d97a;margin-bottom:0.9rem;">// Shell_Protocol · Why the sugar coat?</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3.5rem);line-height:0.95;letter-spacing:1px;color:#f0eee8;margin-bottom:1.2rem;">Pocket-safe.<br>Melt-proof.<br><span style="color:#f5d97a;">Dangerously sweet.</span></h2>
+      <p style="color:rgba(240,238,232,0.5);font-size:0.9rem;line-height:1.75;max-width:400px;">The thin sugar shell locks in the chocolate, survives your bag, your gym, your car — and adds a clean hit of sweet before the dark chocolate takes over. Candy logic, protein payoff.</p>
+    </div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+      <div style="background:rgba(15,10,20,0.85);border:0.5px solid rgba(245,217,122,0.2);padding:1.2rem;">
+        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:2px;text-transform:uppercase;color:#f5d97a;margin-bottom:0.4rem;">Function</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1px;color:#f0eee8;">Melt-proof</div>
+        <div style="font-size:0.78rem;color:rgba(240,238,232,0.4);margin-top:0.3rem;line-height:1.5;">Keeps shape at body temp. No mess, no excuses.</div>
+      </div>
+      <div style="background:rgba(15,10,20,0.85);border:0.5px solid rgba(245,217,122,0.2);padding:1.2rem;">
+        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:2px;text-transform:uppercase;color:#f5d97a;margin-bottom:0.4rem;">Texture</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1px;color:#f0eee8;">The Snap</div>
+        <div style="font-size:0.78rem;color:rgba(240,238,232,0.4);margin-top:0.3rem;line-height:1.5;">Crisp shell gives way to chocolate. One bite, four acts.</div>
+      </div>
+      <div style="background:rgba(15,10,20,0.85);border:0.5px solid rgba(245,217,122,0.2);padding:1.2rem;">
+        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:2px;text-transform:uppercase;color:#f5d97a;margin-bottom:0.4rem;">Flavor</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1px;color:#f0eee8;">First Hit</div>
+        <div style="font-size:0.78rem;color:rgba(240,238,232,0.4);margin-top:0.3rem;line-height:1.5;">Sweet landing before the bittersweet drop.</div>
+      </div>
+      <div style="background:rgba(15,10,20,0.85);border:0.5px solid rgba(245,217,122,0.2);padding:1.2rem;">
+        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:2px;text-transform:uppercase;color:#f5d97a;margin-bottom:0.4rem;">Thickness</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1px;color:#f0eee8;">Ultra-thin</div>
+        <div style="font-size:0.78rem;color:rgba(240,238,232,0.4);margin-top:0.3rem;line-height:1.5;">Barely there. Just enough to do the job.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slogan">
+    <div class="sl-main">Puro placer.</div>
+    <div class="sl-main sl-acc">Sin el castigo.</div>
+    <div class="sl-sub">// Protean Labs · Cherry Core · Edición 01 · 4-Layer Formula</div>
+  </section>
+
+  <section class="cta">
+    <div>
+      <h2 class="cta-h">The future of snacking is<br><span class="acc">cherry-shaped.</span></h2>
+      <p style="color:rgba(240,238,232,0.35);font-size:0.8rem;margin-top:1rem;font-family:monospace;letter-spacing:1px;">40g sachet · 20g protein · 4-layer formula · fits any cup holder</p>
+    </div>
+    <div class="cta-r">
+      <div class="price-sub">Precio por sachet</div>
+      <div class="price">$3.500</div>
+      <div class="price-currency">CLP · Pesos Chilenos</div>
+      <button class="btn-p" style="white-space:nowrap;margin-top:0.4rem">Agregar al Carro</button>
+      <button class="btn-g" style="white-space:nowrap">Ver Bundles</button>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="foot-mono">© 2025 Protean Labs</div>
+    <div class="ticker">
+      <span class="tick-in">CHERRY_CORE · 4-LAYER FORMULA · SUGAR SHELL · DARK CHOCOLATE · FREEZE-DRIED CHERRY · WHEY CORE · PURO PLACER · SIN EL CASTIGO · RECHARGE. DON'T REFUEL. · 20G PROTEIN · $3.500 CLP · MELT-PROOF &nbsp;&nbsp;&nbsp; CHERRY_CORE · 4-LAYER FORMULA ·</span>
+    </div>
+    <div class="foot-mono">PL_LAB · EST. 2025</div>
+  </footer>
+</div>
